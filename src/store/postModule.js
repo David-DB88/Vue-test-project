@@ -76,7 +76,7 @@ export const postModule ={
         async fetchPosts({state, commit}){
             try{
                 commit('setIsPostLoading', true);
-                const response = await axios.get('http://localhost:8081/posts',{
+                const response = await axios.get('https://json-server-vercel-vue.vercel.app/posts',{
                     params: {
                         _page: state.currentPage,
                         _limit: state.limit,
@@ -101,7 +101,7 @@ export const postModule ={
         },
         async editPost({state, commit}, post){
             try{
-                const response = await axios.patch('http://localhost:8081/posts/' + post.id, {
+                const response = await axios.patch('https://json-server-vercel-vue.vercel.app/posts/' + post.id, {
                     title: post.title,
                     body: post.body
                 });
@@ -113,7 +113,7 @@ export const postModule ={
         },
         async deletePost({state, commit}, id){
             try{
-                await axios.delete(`http://localhost:8081/posts/`+ id);
+                await axios.delete(`https://json-server-vercel-vue.vercel.app/posts/`+ id);
 
             }catch (e){
                 console.log('error',e)
@@ -123,7 +123,7 @@ export const postModule ={
         async loadMorePosts({state, commit}){
             commit('setCurrentPage', state.currentPage+1)
             try{
-                const response = await axios.get(`http://localhost:8081/posts`, {
+                const response = await axios.get(`https://json-server-vercel-vue.vercel.app/posts`, {
                     params: {
                         _page: state.currentPage,
                         _limit: state.limit,
@@ -143,9 +143,9 @@ export const postModule ={
 
 
         //Comments Actions
-        async fetchComments({state, commit}){
+        async fetchComments({commit}){
             try{
-                const response = await axios.get('http://localhost:8081/comments');
+                const response = await axios.get('https://json-server-vercel-vue.vercel.app/comments');
                 commit('setComments', response.data)
 
             }catch (e){
@@ -156,7 +156,7 @@ export const postModule ={
         async createComment({state, commit}, newComment){
             const {postId, text: comment, name} = newComment
             try{
-                const response = await axios.post(`http://localhost:8081/posts/${postId}/comments`,
+                const response = await axios.post(`https://json-server-vercel-vue.vercel.app/posts/${postId}/comments`,
                     {
                         name,
                         comment,
@@ -170,7 +170,7 @@ export const postModule ={
         async editComment({state, commit}, editedComment){
             const {id, comment} = editedComment
             try{
-                const response = await axios.patch(`http://localhost:8081/comments/${id}`,
+                const response = await axios.patch(`https://json-server-vercel-vue.vercel.app/comments/${id}`,
                     {
                         comment
                     });
