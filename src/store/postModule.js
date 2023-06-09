@@ -65,7 +65,7 @@ export const postModule ={
 
             try{
                 commit('setPostLoading', true);
-                const response = await axios.get(`http://localhost:8081/posts/${id}`);
+                const response = await axios.get(`https://json-server-vercel-vue.vercel.app/posts/${id}`);
                 commit('setPost', response.data)
             }catch (e){
                 console.log('error',e)
@@ -93,7 +93,7 @@ export const postModule ={
         },
         async createPost({state, commit}, post){
             try{
-                const response = await axios.post('http://localhost:8081/posts', post);
+                const response = await axios.post('https://json-server-vercel-vue.vercel.app/posts', post);
                 commit('setPosts', [...state.posts, response.data])
             }catch (e){
                 console.log('error',e)
@@ -155,6 +155,7 @@ export const postModule ={
         },
         async createComment({state, commit}, newComment){
             const {postId, text: comment, name} = newComment
+
             try{
                 const response = await axios.post(`https://json-server-vercel-vue.vercel.app/posts/${postId}/comments`,
                     {
@@ -162,6 +163,7 @@ export const postModule ={
                         comment,
                         postId
                     });
+                console.log(response,111)
                 commit('setComments', [...state.comments, response.data])
             }catch (e){
                 console.log('error',e)

@@ -10,7 +10,7 @@ export function usePosts (limit){
 
    const  fetchPosts = async() => {
        try {
-           const response = await axios.get('http://localhost:8081/posts', {
+           const response = await axios.get('https://json-server-vercel-vue.vercel.app/posts', {
                params: {
                    _page: 1,
                    _limit: limit,
